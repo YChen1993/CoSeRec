@@ -28,7 +28,8 @@ python main.py --data_name Sports_and_Outdoors
 
 Please cite our paper if it is helpful for your research.
 
-```@article{liu2021contrastive,
+```
+@article{liu2021contrastive,
   title={Contrastive self-supervised sequential recommendation with robust augmentation},
   author={Liu, Zhiwei and Chen, Yongjun and Li, Jia and Yu, Philip S and McAuley, Julian and Xiong, Caiming},
   journal={arXiv preprint arXiv:2108.06479},
