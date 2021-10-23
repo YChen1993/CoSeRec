@@ -18,7 +18,7 @@ Four prepared datasets are included in `data` folder.
 
 ## Train Model
 
-To train our model on `Sports_and_Outdoors dataset`, change to the `src` folder and run following command: 
+To train our model on `Sports_and_Outdoors` dataset, change to the `src` folder and run following command: 
 
 ```
 python main.py --data_name Sports_and_Outdoors
@@ -38,5 +38,5 @@ Please cite our paper if it is helpful for your research.
 ```
 
 ## Acknowledge
- - Transformer and training pipeline is implemented based on [S3-Rec](https://github.com/RUCAIBox/CIKM2020-S3Rec). Thanks them for providing efficient implementation.
+ - Transformer and training pipeline are implemented based on [S3-Rec](https://github.com/RUCAIBox/CIKM2020-S3Rec). Thanks them for providing efficient implementation.
 
