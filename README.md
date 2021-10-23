@@ -1,10 +1,14 @@
 # Contrastive Self-supervised Sequential Recommendation with Robust Augmentation
 
-Source code for the paper: [Contrastive Self-supervised Sequential Recommendation with Robust Augmentation](https://arxiv.org/pdf/2108.06479.pdf)
+Source code for our paper: [Contrastive Self-supervised Sequential Recommendation with Robust Augmentation](https://arxiv.org/pdf/2108.06479.pdf)
+
+Model architecture:
 
 <img src="./img/framework.png" width="450">
 
-<img src="./img/augmentation.png" width="250">
+Data Augmentations:
+
+<img src="./img/augmentation.png" width="350">
 
 ## Requirements
 
