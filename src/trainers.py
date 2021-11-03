@@ -173,10 +173,13 @@ class CoSeRecTrainer(Trainer):
         cl_batch = torch.cat(inputs, dim=0)
         cl_batch = cl_batch.to(self.device)
         cl_sequence_output = self.model.transformer_encoder(cl_batch)
-        cl_sequence_output = cl_sequence_output.view(self.args.n_views,
-                                                     cl_sequence_output.shape[0]//self.args.n_views,
-                                                     -1)
-        cl_loss = self.cf_criterion(cl_sequence_output)
+        # cf_sequence_output = cf_sequence_output[:, -1, :]
+        cl_sequence_flatten = cl_sequence_output.view(cl_batch.shape[0], -1)
+        # cf_output = self.projection(cf_sequence_flatten)
+        batch_size = cl_batch.shape[0]//2
+        cl_output_slice = torch.split(cl_sequence_flatten, batch_size)
+        cl_loss = self.cf_criterion(cl_output_slice[0], 
+                                cl_output_slice[1])
         return cl_loss
 
     def iteration(self, epoch, dataloader, full_sort=True, train=True):

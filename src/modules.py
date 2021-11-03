@@ -21,13 +21,7 @@ class NCELoss(nn.Module):
         self.cossim = nn.CosineSimilarity(dim=-1).to(self.device)
         
     # #modified based on impl: https://github.com/ae-foster/pytorch-simclr/blob/dc9ac57a35aec5c7d7d5fe6dc070a975f493c1a5/critic.py#L5
-    def forward(self, features):
-        features = F.normalize(features, dim=2)
-        n_views = features.shape[0]
-        batch_size = features.shape[1]
-        cl_sequence_flatten = features.view(batch_size*n_views, -1)
-        cl_output_slice = torch.split(cl_sequence_flatten, batch_size)
-        batch_sample_one, batch_sample_two = cl_output_slice[0], cl_output_slice[1]
+    def forward(self, batch_sample_one, batch_sample_two):
         sim11 = torch.matmul(batch_sample_one, batch_sample_one.T) / self.temperature
         sim22 = torch.matmul(batch_sample_two, batch_sample_two.T) / self.temperature
         sim12 = torch.matmul(batch_sample_one, batch_sample_two.T) / self.temperature
