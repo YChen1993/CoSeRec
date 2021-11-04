@@ -1,5 +1,5 @@
 # Introduction
-Contrastive Self-supervised Sequential Recommendation with Robust Augmentation
+Contrastive Self-supervised Sequential Recommendation with Robust Augmentation (CoSeRec)
 
 Source code for paper: [Contrastive Self-supervised Sequential Recommendation with Robust Augmentation](https://arxiv.org/pdf/2108.06479.pdf)
 
@@ -43,7 +43,7 @@ To train CoSeRec on `Sports_and_Outdoors` dataset, change to the `src` folder an
 python main.py --data_name Sports_and_Outdoors
 ```
 
-The script will automatically train AnDa and save the best model found in validation set, and then evaluate on test set. You are expected to get following results after training:
+The script will automatically train CoSeRec and save the best model found in validation set, and then evaluate on test set. You are expected to get following results after training:
 
 ```
 'HIT@5': '0.0287', 'NDCG@5': '0.0194', 'HIT@10': '0.0437', 'NDCG@10': '0.0242', 'HIT@20': '0.0635', 'NDCG@20': '0.0292'
