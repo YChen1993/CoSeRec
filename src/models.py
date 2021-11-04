@@ -280,9 +280,13 @@ class OfflineItemSimilarity:
             else:
                 item_list = list(self.similarity_model.keys())
                 random_items = random.sample(item_list, k=top_k)
+                if with_score:
+                    return list(map(lambda x: (int(x), 0.0), random_items))
                 return list(map(lambda x: int(x), random_items))
         elif self.model_name == 'Random':
             random_items = random.sample(self.similarity_model, k = top_k)
+            if with_score:
+                return list(map(lambda x: (int(x), 0.0), random_items))
             return list(map(lambda x: int(x), random_items))
 
 if __name__ == '__main__':
