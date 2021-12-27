@@ -40,8 +40,9 @@ Four prepared datasets are included in `data` folder.
 To train CoSeRec on `Sports_and_Outdoors` dataset, change to the `src` folder and run following command: 
 
 ```
-python main.py --data_name Sports_and_Outdoors
+bash sports.sh
 ```
+You can train CoSeRec on Beauty or Yelp in a similar way.
 
 The script will automatically train CoSeRec and save the best model found in validation set, and then evaluate on test set. You are expected to get following results after training:
 
@@ -58,7 +59,7 @@ You can directly evaluate a trained model on test set by running:
 python main.py --data_name Sports_and_Outdoors --model_idx 0 --do_eval
 ```
 
-We provide a model that trained on Sports_and_Games dataset in `./src/output` folder. Please feel free to test is out.
+We provide a model that trained on Sports_and_Games, Beauty, and Yelp in `./src/output` folder. Please feel free to test is out.
 
 # Acknowledgement
  - Transformer and training pipeline are implemented based on [S3-Rec](https://github.com/RUCAIBox/CIKM2020-S3Rec). Thanks them for providing efficient implementation.
