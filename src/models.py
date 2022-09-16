@@ -89,13 +89,14 @@ class OnlineItemSimilarity:
         self.device = torch.device("cuda" if self.cuda_condition else "cpu")
         self.total_item_list = torch.tensor([i for i in range(self.item_size)],
                                             dtype=torch.long).to(self.device)
-        
+        # self.max_score, self.min_score = self.get_maximum_minimum_sim_scores()
         
     def update_embedding_matrix(self, item_embeddings):
+        print(item_embeddings)
         self.item_embeddings = copy.deepcopy(item_embeddings)
         self.base_embedding_matrix =self.item_embeddings(self.total_item_list)
         self.max_score, self.min_score = self.get_maximum_minimum_sim_scores()
-        
+
     def get_maximum_minimum_sim_scores(self):
         max_score, min_score = -1, 100
         for item_idx in range(1, self.item_size):
@@ -105,14 +106,17 @@ class OnlineItemSimilarity:
                 max_score = max(torch.max(item_similarity), max_score)
                 min_score = min(torch.min(item_similarity), min_score)
             except:
+                print("ssssss")
                 continue
         return max_score, min_score
         
     def most_similar(self, item_idx, top_k=1, with_score=False):
+        
+
         item_idx = torch.tensor(item_idx, dtype=torch.long).to(self.device)
         item_vector = self.item_embeddings(item_idx).view(-1, 1)
         item_similarity = torch.mm(self.base_embedding_matrix, item_vector).view(-1)
-        item_similarity = (self.max_score - item_similarity) / (self.max_score - self.min_score)
+        item_similarity = (item_similarity - self.min_score) / (self.max_score - self.min_score)
         #remove item idx itself
         values, indices = item_similarity.topk(top_k+1)
         if with_score:
@@ -270,13 +274,13 @@ class OfflineItemSimilarity:
                 top_k_items_with_score = sorted(self.similarity_model[str(item)].items(),key=lambda x : x[1], \
                                             reverse=True)[0:top_k]
                 if with_score:
-                    return list(map(lambda x: (int(x[0]), (self.max_score - float(x[1]))/(self.max_score -self.min_score)), top_k_items_with_score))
+                    return list(map(lambda x: (int(x[0]), (float(x[1]) - self.min_score)/(self.max_score -self.min_score)), top_k_items_with_score))
                 return list(map(lambda x: int(x[0]), top_k_items_with_score))
             elif int(item) in self.similarity_model:
                 top_k_items_with_score = sorted(self.similarity_model[int(item)].items(),key=lambda x : x[1], \
                                             reverse=True)[0:top_k]
                 if with_score:
-                    return list(map(lambda x: (int(x[0]), (self.max_score - float(x[1]))/(self.max_score -self.min_score)), top_k_items_with_score))
+                    return list(map(lambda x: (int(x[0]), (float(x[1]) - self.min_score)/(self.max_score -self.min_score)), top_k_items_with_score))
                 return list(map(lambda x: int(x[0]), top_k_items_with_score))
             else:
                 item_list = list(self.similarity_model.keys())
